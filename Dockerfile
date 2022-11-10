@@ -1,0 +1,3 @@
+from golang
+
+ADD . /
