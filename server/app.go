@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/jtengananbd/questionsandanswers/answer"
+	"github.com/jtengananbd/questionsandanswers/constant"
 	"github.com/jtengananbd/questionsandanswers/question"
 
 	"github.com/gorilla/mux"
@@ -18,6 +20,7 @@ type Server struct {
 }
 
 func (server *Server) Init(user string, password string, dbname string) {
+
 	connectionValues := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", user, password, dbname)
 
 	var err error
@@ -40,24 +43,18 @@ func (server *Server) Init(user string, password string, dbname string) {
 
 func checkError(err error) {
 	if err != nil {
-		panic(err)
-	}
-}
-
-func (server *Server) initDBTables() {
-	if _, err := server.DB.Exec(createQuestionsQuery); err != nil {
 		log.Fatal(err)
 	}
 }
 
-const createQuestionsQuery = `CREATE TABLE IF NOT EXISTS questions
-(
-    id SERIAL,
-    tittle TEXT NOT NULL,
-    statement TEXT NOT NULL,
-    tags TEXT DEFAULT '',
-    CONSTRAINT questions_pkey PRIMARY KEY (id)
-)`
+func (server *Server) initDBTables() {
+	if _, err := server.DB.Exec(constant.CreateQuestionsQuery); err != nil {
+		log.Fatal("initTable Questions ", err)
+	}
+	if _, err := server.DB.Exec(constant.CreateAnswersQuery); err != nil {
+		log.Fatal("initTable Answers ", err)
+	}
+}
 
 func (server *Server) StartServer(address string) {
 	log.Fatal(http.ListenAndServe(address, server.Router))
@@ -66,8 +63,11 @@ func (server *Server) StartServer(address string) {
 func (server *Server) initializeRoutes() {
 	server.Router.HandleFunc("/", question.Home)
 
-	questionAPI := question.NewAPI(question.NewService(question.NewRepository(server.DB)))
+	questionAPI := question.NewAPI(question.NewService(question.NewRepository(server.DB), answer.NewRepository(server.DB)))
+
 	server.Router.HandleFunc("/questions", questionAPI.Create).Methods("POST")
 	server.Router.HandleFunc("/questions/{id:[0-9]+}", questionAPI.GetByID).Methods("GET")
+	server.Router.HandleFunc("/questions/{id:[0-9]+}", questionAPI.Update).Methods("PUT")
 	server.Router.HandleFunc("/questions", questionAPI.List).Methods("GET")
+	server.Router.HandleFunc("/questions/{id:[0-9]+}", questionAPI.Delete).Methods("DELETE")
 }
