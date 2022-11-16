@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	host     = "localhost"
+	host     = "postgresdb"
 	port     = 5432
 	user     = "postgres"
 	password = "mypassword"
@@ -17,7 +17,7 @@ func main() {
 
 	server := server.Server{}
 
-	server.Init(user, password, dbname)
+	server.Init(user, password, dbname, host)
 
 	defer server.DB.Close()
 	server.StartServer(":8080")

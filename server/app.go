@@ -19,9 +19,9 @@ type Server struct {
 	DB     *sql.DB
 }
 
-func (server *Server) Init(user string, password string, dbname string) {
+func (server *Server) Init(user string, password string, dbname string, dbhost string) {
 
-	connectionValues := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", user, password, dbname)
+	connectionValues := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", user, password, dbname, dbhost)
 
 	var err error
 	server.DB, err = sql.Open("postgres", connectionValues)

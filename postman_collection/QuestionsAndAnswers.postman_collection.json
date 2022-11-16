@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "bb54d4b1-c405-44a5-b3f9-079b5af48c7e",
+		"name": "QuestionsAndAnswers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24297867"
+	},
+	"item": [
+		{
+			"name": "Create Question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\": \"julio@mail.com\",\n    \"tittle\": \"How to write a REST API golang?\",\n    \"statement\": \"I would like to know which library can help me to write a REST API golang?\",\n    \"tags\": \"go, golang, REST, API, library, code 4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/questions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Question by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/questions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/questions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Questions by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/questions?user=julio@mail.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "julio@mail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Question",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\": \"julioc@mail.com\",\n    \"tittle\": \"How to write a REST API golang?\",\n    \"statement\": \"I would like to know which library can help me to write a REST API golang? ...\",\n    \"tags\": \"go, golang, REST, API, library, code\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/questions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Question/Answer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\": \"julioc@mail.com\",\n    \"tittle\": \"How to write a REST API golang?\",\n    \"statement\": \"I would like to know which library can help me to write a REST API golang? ...\",\n    \"tags\": \"go, golang, REST, API, library, code\",\n    \"answer\": {\n        \"userID\": \"another@mail.com\",\n        \"comment\": \"you can user gorilla library 4...\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/questions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Question",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/questions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
