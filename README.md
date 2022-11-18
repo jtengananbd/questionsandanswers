@@ -26,7 +26,7 @@ to run all the test, exetute this command:
 
 
 
-##Pending tasks:
+## Pending tasks:
     * Refactor to use context package
     * Include validations for input objects, like required fields or email format with some validator lib
     * Centralized error handling to unify error messages.
