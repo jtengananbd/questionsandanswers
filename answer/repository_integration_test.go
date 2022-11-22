@@ -28,10 +28,8 @@ func TestAnswerRepository_GetByQuestionIDIntegration(t *testing.T) {
 	integration.ClearTable(db)
 	integration.InsertTable(db)
 
-	// Create user repository
 	repository := NewRepository(db)
 
-	// Run tests against db
 	t.Run("GetByQuestionID", func(t *testing.T) {
 		answer, err := repository.GetByQuestionID("1")
 
@@ -56,10 +54,8 @@ func TestAnswerRepository_UpdateIntegration(t *testing.T) {
 	integration.ClearTable(db)
 	integration.InsertTable(db)
 
-	// Create user repository
 	repository := NewRepository(db)
 
-	// Run tests against db
 	t.Run("Update", func(t *testing.T) {
 		answerDB, err := repository.GetByQuestionID("1")
 		if err != nil {
@@ -90,7 +86,6 @@ func TestAnswerRepository_CreateIntegration(t *testing.T) {
 	integration.ClearTable(db)
 	integration.InsertTable(db)
 
-	// Create user repository
 	repository := NewRepository(db)
 
 	answer := entity.Answer{
@@ -99,7 +94,6 @@ func TestAnswerRepository_CreateIntegration(t *testing.T) {
 		Comment:    "comment test",
 	}
 
-	// Run tests against db
 	t.Run("Create", func(t *testing.T) {
 		answerRs, err := repository.Create(answer)
 
@@ -125,10 +119,8 @@ func TestAnswerRepository_DeleteIntegration(t *testing.T) {
 	integration.ClearTable(db)
 	integration.InsertTable(db)
 
-	// Create user repository
 	repository := NewRepository(db)
 
-	// Run tests against db
 	t.Run("Delete", func(t *testing.T) {
 		err := repository.DeleteByQuestionID("1")
 		if err != nil {

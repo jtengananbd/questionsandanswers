@@ -35,6 +35,13 @@ Execute just the Integration tests, It find your tests with name ending with Int
 ```$ go test -v -run 'Integration' ./...```
 
 
+Coverage 
+```go test -coverprofile=cover.txt ./...```
+
+This will open a browser tab to visualize the coverage
+```go tool cover -html=cover.txt```
+
+
 
 
 ## Pending tasks:

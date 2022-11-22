@@ -52,7 +52,6 @@ func (r repository) GetByQuestionID(ID string) (entity.Answer, error) {
 		}
 		return entity.Answer{}, err
 	}
-
 	return answer, nil
 }
 

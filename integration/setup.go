@@ -73,5 +73,6 @@ func ClearTable(db *sql.DB) {
 func InsertTable(db *sql.DB) {
 	db.Exec("INSERT INTO questions (user_id, tittle, statement, tags, created_on) VALUES ('julio@mail.com', 'tittle1', 'statement', 'GO, code', '2022-11-18 15:00:01'::timestamp)")
 	db.Exec("INSERT INTO questions (user_id, tittle, statement, tags, created_on) VALUES ('julio@mail.com', 'tittle2', 'statement2', 'GO, code', '2022-11-18 17:00:01'::timestamp)")
+	db.Exec("INSERT INTO questions (user_id, tittle, statement, tags, created_on) VALUES ('julio@mail.com', 'tittle3', 'statement3', 'GO, code', '2022-11-19 17:00:01'::timestamp)")
 	db.Exec("INSERT INTO answers (question_id, user_id, comment, created_on) VALUES (1, 'julio@mail.com', 'comment', '2022-11-18 15:00:01'::timestamp)")
 }
