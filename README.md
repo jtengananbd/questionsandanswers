@@ -10,6 +10,8 @@ To run the project you need installed:
 Execute this commnad to build the project into a docker compose
 
 ```$ docker-compose build```
+
+
 #### To Run 
 Execute this command to run the project, It will run on your local machine on port 8080, also the Database dependency will be started.
 
@@ -31,15 +33,20 @@ Execute just the Unit tests
 
 
 Execute just the Integration tests, It find your tests with name ending with Integration, e.g ```TestAnswerRepository_CreateIntegration```
+Running integration tests requires docker intalled
 
 ```$ go test -v -run 'Integration' ./...```
 
 
 Coverage 
-```go test -coverprofile=cover.txt ./...```
+```$ go test -coverprofile=cover.txt ./...```
 
 This will open a browser tab to visualize the coverage
-```go tool cover -html=cover.txt```
+```& go tool cover -html=cover.txt```
+
+
+To show the coverage % per package
+```$ go test -cover ./...```
 
 
 

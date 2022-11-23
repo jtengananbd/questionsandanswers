@@ -22,9 +22,9 @@ var question = &entity.Question{
 func TestService_CreateQuestion(t *testing.T) {
 
 	service := NewService(mockRepo{}, answerRepoMock{})
-	questionDB := question
+	questionDB := *question
 	questionDB.ID = "1"
-	res, err := service.Create(*questionDB)
+	res, err := service.Create(questionDB)
 
 	assert.NotNil(t, res)
 	assert.NoError(t, err)
@@ -35,10 +35,10 @@ func TestService_CreateQuestionWithError(t *testing.T) {
 
 	service := NewService(mockRepo{}, answerRepoMock{})
 	fmt.Println(question)
-	q1 := question
+	q1 := *question
 	q1.Statement = "error"
 
-	_, err := service.Create(*question)
+	_, err := service.Create(q1)
 	assert.Error(t, err)
 	assert.Equal(t, "some database error", err.Error())
 }

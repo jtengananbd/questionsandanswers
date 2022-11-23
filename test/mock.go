@@ -2,7 +2,9 @@ package test
 
 import (
 	"database/sql"
+	"database/sql/driver"
 	"log"
+	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
 )
@@ -14,4 +16,12 @@ func NewMockDB() (*sql.DB, sqlmock.Sqlmock) {
 	}
 
 	return db, mock
+}
+
+type AnyTime struct{}
+
+// Match satisfies sqlmock.Argument interface
+func (a AnyTime) Match(v driver.Value) bool {
+	_, ok := v.(time.Time)
+	return ok
 }

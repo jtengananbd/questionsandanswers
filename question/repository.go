@@ -83,10 +83,10 @@ func (r repository) List(user string) ([]entity.Question, error) {
 
 	if user != "" {
 		rows, err = r.DB.Query(
-			"SELECT id, user_id, tittle, statement, tags FROM questions WHERE user_id=$1", user)
+			"SELECT id, user_id, tittle, statement, tags, created_on FROM questions WHERE user_id=$1", user)
 	} else {
 		rows, err = r.DB.Query(
-			"SELECT id, user_id, tittle, statement, tags FROM questions")
+			"SELECT id, user_id, tittle, statement, tags, created_on FROM questions")
 	}
 
 	if err != nil {
@@ -100,7 +100,7 @@ func (r repository) List(user string) ([]entity.Question, error) {
 
 	for rows.Next() {
 		var q entity.Question
-		if err := rows.Scan(&q.ID, &q.UserID, &q.Tittle, &q.Statement, &q.Tags); err != nil {
+		if err := rows.Scan(&q.ID, &q.UserID, &q.Tittle, &q.Statement, &q.Tags, &q.CreatedOn); err != nil {
 			return nil, err
 		}
 		questions = append(questions, q)
