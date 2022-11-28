@@ -173,7 +173,7 @@ func TestRepository_DeleteFails(t *testing.T) {
 	assert.Error(t, err)
 }
 
-func TestQuestionRepository_List(t *testing.T) {
+func TestQuestionRepository_ListByUserID(t *testing.T) {
 	db, mock := test.NewMockDB()
 
 	repo := NewRepository(db)
@@ -189,5 +189,59 @@ func TestQuestionRepository_List(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotEmpty(t, answers)
+
+}
+
+func TestQuestionRepository_List(t *testing.T) {
+	db, mock := test.NewMockDB()
+
+	repo := NewRepository(db)
+
+	query := "SELECT id, user_id, tittle, statement, tags, created_on FROM questions"
+
+	rows := sqlmock.NewRows([]string{"id", "user_id", "tittle", "statement", "tags", "created_on"}).
+		AddRow(q.ID, q.UserID, q.Tittle, q.Statement, q.Tags, q.CreatedOn)
+
+	mock.ExpectQuery(regexp.QuoteMeta(query)).WillReturnRows(rows)
+
+	answers, err := repo.List("")
+
+	assert.NoError(t, err)
+	assert.NotEmpty(t, answers)
+
+}
+
+func TestQuestionRepository_ListFails(t *testing.T) {
+	db, mock := test.NewMockDB()
+
+	repo := NewRepository(db)
+
+	query := "SELECT id, user_id, tittle, statement, tags, created_on FROM questions"
+
+	mock.ExpectQuery(regexp.QuoteMeta(query)).WillReturnError(errors.New("Unspected Error"))
+
+	answers, err := repo.List("")
+
+	assert.Error(t, err)
+	assert.Empty(t, answers)
+
+}
+
+func TestQuestionRepository_ListFailsScan(t *testing.T) {
+	db, mock := test.NewMockDB()
+
+	repo := NewRepository(db)
+
+	query := "SELECT id, user_id, tittle, statement, tags, created_on FROM questions"
+
+	rows := sqlmock.NewRows([]string{"id", "tittle", "statement", "tags", "created_on"}).
+		AddRow(q.ID, q.Tittle, q.Statement, q.Tags, q.CreatedOn)
+
+	mock.ExpectQuery(regexp.QuoteMeta(query)).WillReturnRows(rows)
+
+	answers, err := repo.List("")
+
+	assert.Error(t, err)
+	assert.Empty(t, answers)
 
 }

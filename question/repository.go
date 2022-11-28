@@ -91,7 +91,7 @@ func (r repository) List(user string) ([]entity.Question, error) {
 
 	if err != nil {
 		log.Println("list question failed", err)
-		return nil, err
+		return []entity.Question{}, err
 	}
 
 	defer rows.Close()
@@ -101,7 +101,7 @@ func (r repository) List(user string) ([]entity.Question, error) {
 	for rows.Next() {
 		var q entity.Question
 		if err := rows.Scan(&q.ID, &q.UserID, &q.Tittle, &q.Statement, &q.Tags, &q.CreatedOn); err != nil {
-			return nil, err
+			return []entity.Question{}, err
 		}
 		questions = append(questions, q)
 	}

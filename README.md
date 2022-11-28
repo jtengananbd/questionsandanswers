@@ -52,6 +52,7 @@ To show the coverage % per package
 
 
 ## Pending tasks:
+    * Refactor service operation to apply transactional calls for operation over multiple entities/tables
     * Refactor to use context package
     * Include validations for input objects, like required fields or email format with some validator lib
     * Centralized error handling to unify error messages.
